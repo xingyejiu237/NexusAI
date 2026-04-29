@@ -1,7 +1,5 @@
 # NexusAI
 
-基于 [DocuMind](https://github.com/xingyejiu237/DocuMind) 项目的 AI 组件库
-
 ## 简介
 
 NexusAI 是一个模块化的 AI 组件库，提供构建智能应用所需的核心能力。目前基于 Spring AI 框架实现，支持 Java 语言。
