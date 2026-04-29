@@ -2,6 +2,8 @@ package nexusai.core.mcp.java.springai;
 
 import io.modelcontextprotocol.client.McpSyncClient;
 import io.modelcontextprotocol.spec.McpSchema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,8 @@ import java.util.Map;
  */
 @Component
 public class McpComponentImpl implements McpComponent {
+
+    private static final Logger log = LoggerFactory.getLogger(McpComponentImpl.class);
 
     private final List<McpSyncClient> mcpClients;
     private final DataSource dataSource;
@@ -66,7 +70,7 @@ public class McpComponentImpl implements McpComponent {
                     tools.add(new ToolInfo(tool.name(), tool.description()));
                 }
             } catch (Exception e) {
-                System.err.println("[McpComponent] 获取工具列表失败: " + e.getMessage());
+                log.warn("[McpComponent] 获取工具列表失败: {}", e.getMessage());
             }
         }
 
@@ -97,7 +101,7 @@ public class McpComponentImpl implements McpComponent {
                         .reduce((a, b) -> a + "\n" + b)
                         .orElse("");
             } catch (Exception e) {
-                System.err.println("[McpComponent] 调用工具失败: " + toolName + ", 错误: " + e.getMessage());
+                log.warn("[McpComponent] 调用工具失败: {}, 错误: {}", toolName, e.getMessage());
             }
         }
         return null;
